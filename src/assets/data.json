@@ -1,0 +1,26 @@
+{
+    "places":[
+        {
+            "name":"Raton Perez",
+            "latlng":[
+                -6.769595, 
+                -79.858250
+            ]
+        },
+        {
+            "name":"Aweonao Wn",
+            "latlng":[
+                -6.779300, 
+                -79.839389
+            ]
+        },
+        {
+            "name":"sinko peso",
+            "latlng":[
+                -6.799862, 
+                -79.872496
+            ]
+        }
+    ]
+
+}
