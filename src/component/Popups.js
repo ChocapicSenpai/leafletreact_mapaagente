@@ -1,16 +1,17 @@
-import { Marker, Popup} from "react-leaflet";
+import {Popup} from "react-leaflet";
 
-const pops = [-6.771590,-79.838013]
-
-const Popups = () =>{
-    
+const Popups = (props) =>{
+  const {name}=props.data;
+  const {tlf}=props.data;
+  const {drc}=props.data;
     return (
         <Popup>
-          {pops}
+          <div> {name} </div>
+          <div> {tlf} </div>
+          <div> {drc} </div>         
         </Popup>
 
     )
 }
-
 
 export default Popups

@@ -1,7 +1,11 @@
 {
     "places":[
-        {
+        {   
+            "departamento": "Lambayeque",
+            "distrito": "Chiclayo",
+            "drc": "San Martin 250",
             "name":"Raton Perez",
+            "tlf":"987654321",
             "latlng":[
                 -6.769595, 
                 -79.858250

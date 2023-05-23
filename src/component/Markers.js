@@ -1,10 +1,8 @@
 import React from "react";
 import { Marker, Popup} from "react-leaflet";
 import {IconLocation} from "./IconLocation";
-import {Popups} from "./Popups";
+import Popups from "./Popups";
 
-
-const marcadores = [-6.771590,-79.838013]
 
 const Markers = (props) =>{
 
@@ -14,7 +12,9 @@ const Markers = (props) =>{
         key={i}
         position={places.latlng} 
         icon={IconLocation}
-        />
+        >
+            <Popups data={places}/>
+        </Marker>    
         ));
 
     return markers;
