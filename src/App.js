@@ -1,10 +1,10 @@
-import React, { useEffect, useState  } from 'react';
+import React from 'react';
+
 
 import './App.css';
 
-//import AgentesApi,{Agente} from './assets/AgentesApi'
-
-import MapView from './component/MapView';
+//import MapView from './component/MapView';
+import Agentefise from './Agente_fise';
 
 
 
@@ -13,7 +13,7 @@ function App() {
 
 
   return (
-    <MapView/>
+    <Agentefise/>
  
   );
 }
