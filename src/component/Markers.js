@@ -6,8 +6,10 @@ import Popups from "./Popups";
 
 const Markers = (props) => {
     const { places } = props;
+
+    const filteredPlaces = places.filter((place) => place.estado === 1);
   
-    const markers = places.map((place, i) => {
+    const markers = filteredPlaces.map((place, i) => {
       if (!place || !place.latlng) {
         return null;
       }
@@ -29,4 +31,3 @@ const Markers = (props) => {
   };
   
   export default Markers;
-

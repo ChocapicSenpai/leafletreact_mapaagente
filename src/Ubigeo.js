@@ -10,25 +10,76 @@ class Ubigeo extends Component{
             ubigeos:[],
             modalTitle:"",
             NumeroUbigeo:"",
-            UbigeoId:0
+            UbigeoId:0,
+            DepartamentoUbigeo:"",
+            ProvinciaUbigeo:"",
+            DistritoUbigeo:"",
+
+            filterNumeroUbigeo: "",
+            currentPage: 1, // Página actual
+            totalPages: 0, // Total de páginas
+            itemsPerPage: 20, // Cantidad de agentes por página
+
         }
     }
+
+    ///
+    getFilteredUbigeos() {
+        const { ubigeos, filterNumeroUbigeo } = this.state;
+        return ubigeos.filter((ubi) =>
+          ubi.NumeroUbigeo.toLowerCase().includes(filterNumeroUbigeo.toLowerCase())
+        );
+      }    
+    // Método para cambiar a la página anterior
+      goToPreviousPage = () => {
+        const { currentPage } = this.state;
+        if (currentPage > 1) {
+          this.setState({ currentPage: currentPage - 1 });
+        }
+      };
+      
+    // Método para cambiar a la página siguiente
+      goToNextPage = () => {
+        const { currentPage, totalPages } = this.state;
+        if (currentPage < totalPages) {
+          this.setState({ currentPage: currentPage + 1 });
+        }
+      };
+      
+    // Método para cambiar a una página específica
+      goToPage = (pageNumber) => {
+        const { totalPages } = this.state;
+        if (pageNumber >= 1 && pageNumber <= totalPages) {
+          this.setState({ currentPage: pageNumber });
+        }
+      };
+    ///
+    // changePage=(page)=>{
+    //     this.setState({currentPage:page})
+    // }
+
+    changeFilterNumeroUbigeo = (e) => {
+        this.setState({ filterNumeroUbigeo: e.target.value, currentPage: 1 });
+      };
 
     refreshList(){
         fetch(variables.API_URL+'ubigeo')
         .then(response=>response.json())
         .then(data=>{
-            this.setState({ubigeos:data});
+            // const filteredUbigeos = this.getFilteredUbigeos();
+            const totalPages = Math.ceil(data.length / this.state.itemsPerPage);
+            this.setState({ ubigeos: data, totalPages });
         });
     }
+
 
     componentDidMount(){
         this.refreshList();
     }
 
-    changeNumeroUbigeo =(e)=>{
-        this.setState({NumeroUbigeo:e.target.value});
-    }
+    changeNumeroUbigeo = (e) => {
+        this.setState({ NumeroUbigeo: e.target.value});
+      };
 
     changeDepartamentoUbigeo =(e)=>{
         this.setState({DepartamentoUbigeo:e.target.value});
@@ -46,7 +97,10 @@ class Ubigeo extends Component{
         this.setState({
             modalTitle:"Añadir Ubigeo",
             UbigeoId:0,
-            NumeroUbigeo:""
+            NumeroUbigeo:"",
+            DepartamentoUbigeo:"",
+            ProvinciaUbigeo:"",
+            DistritoUbigeo:"",
         });
     }
 
@@ -129,24 +183,99 @@ class Ubigeo extends Component{
 
     render(){
         const {
-            ubigeos,
+            
             modalTitle,
             UbigeoId,
             NumeroUbigeo,
             DepartamentoUbigeo,
             ProvinciaUbigeo,
-            DistritoUbigeo
+            DistritoUbigeo,
+            filterNumeroUbigeo,
+            currentPage, 
+            itemsPerPage,
+            totalPages
         }=this.state
+        ///
+        // Obtener los datos filtrados
+        const filteredUbigeos = this.getFilteredUbigeos();
+
+        // Calcular los índices de los elementos de la página actual
+        const indexOfLastItem = currentPage * itemsPerPage;
+        const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+        const currentItems = filteredUbigeos.slice(indexOfFirstItem, indexOfLastItem);
+
+        // Generar los números de página
+        const pageNumbers = [];
+        for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);}
 
         return(
+            
             <div>
-            <button type="button"
+           
+            <nav class="navbar navbar-expand-lg justify-content-between">
+            <ul className="pagination ">
+                {/* Botón para la página anterior */}
+                <li
+                className={`page-item${currentPage === 1 ? " disabled" : ""}`}
+                >
+                <button
+                    className="page-link"
+                    onClick={this.goToPreviousPage}
+                >
+                    Anterior
+                </button>
+                </li>
+
+                {/* Números de página */}
+                {pageNumbers.map((pageNumber) => (
+                <li
+                    key={pageNumber}
+                    className={`page-item${currentPage === pageNumber ? " active" : ""}`}
+                >
+                    <button
+                    className="page-link"
+                    onClick={() => this.goToPage(pageNumber)}
+                    >
+                    {pageNumber}
+                    </button>
+                </li>
+                ))}
+
+                {/* Botón para la página siguiente */}
+                <li
+                className={`page-item${currentPage === totalPages ? " disabled" : ""}`}
+                >
+                <button
+                    className="page-link"
+                    onClick={this.goToNextPage}
+                >
+                    Siguiente
+                </button>
+                </li>
+            </ul>
+
+            <form class="form-inline">
+               <input
+                        type="text"
+                        className="form-control nav-item"
+                        placeholder="Buscar NumeroUbigeo"
+                        value={filterNumeroUbigeo}
+                        onChange={this.changeFilterNumeroUbigeo}
+                    /> 
+            </form>
+
+             <button type="button"
             className="btn btn-primary m-2 float-end"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
             onClick={()=>this.addClick()}>
                 Añadir Ubigeo
-            </button>  
+            </button> 
+       
+            </nav>
+            <br></br>
+
                 <table className="table table-striped">
                     <thead>
                     <tr>
@@ -154,6 +283,7 @@ class Ubigeo extends Component{
                         UbigeoId
                     </th>
                     <th>
+                    
                         NumeroUbigeo
                     </th>
                     <th>
@@ -172,7 +302,7 @@ class Ubigeo extends Component{
                     </thead>
 
                     <tbody>
-                        {ubigeos.map(ubi=>
+                        {currentItems.map(ubi=>
                             <tr key={ubi.UbigeoId}>
                                 <td>{ubi.UbigeoId}</td>
                                 <td>{ubi.NumeroUbigeo}</td>

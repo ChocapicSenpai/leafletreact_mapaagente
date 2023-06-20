@@ -38,6 +38,27 @@
 }
 
 .leaflet-container{
-  width: 500px;
+  margin: 2%;
+  width: 96%;
   height: 500px;
+}
+
+.contador{
+  color:black;
+}
+
+.contadorp{
+  color:green;
+}
+
+.contadorn{
+  color:red;
+}
+
+.logo-link {
+  margin: 0; /* Ajusta el margen según sea necesario */
+}
+
+.logo{
+  width: 80px;
 }

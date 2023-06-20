@@ -14,4 +14,3 @@ const Popups=(props) =>{
   )
 }
 export default Popups
-
