@@ -1,4 +1,3 @@
-
 import React,{Component} from 'react';
 import { variables } from '../Variables.js';
 

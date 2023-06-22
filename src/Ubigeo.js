@@ -116,11 +116,13 @@ class Ubigeo extends Component{
     }
 
     createClick(){
+        console.log("Token:", this.props.token);
         fetch(variables.API_URL+'ubigeo',{
             method: 'POST',
             headers:{
                 'Accept': 'application/json',
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${this.props.token}`
             },
             body:JSON.stringify({
                 NumeroUbigeo:this.state.NumeroUbigeo,

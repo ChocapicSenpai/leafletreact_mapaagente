@@ -1,7 +1,7 @@
 import React,{ Component, useState } from "react";
 import { variables } from "./Variables";
 
-import ReCAPTCHA from "react-google-recaptcha";
+// import ReCAPTCHA from "react-google-recaptcha";
 
 class Agente extends Component{
     
@@ -31,18 +31,17 @@ class Agente extends Component{
             totalPages: 0,
             itemsPerPage: 20, 
 
-            captcha:[],
-            captchaToken:[],
+            // captcha:[],
+            // captchaToken:[],
         }
     }
     
-        ///
-      
-        handleRecaptchaChange = (token) => {
-        console.log('Token reCAPTCHA:', token);
-        this.setState({ captchaToken: token });
+        ///      
+        // handleRecaptchaChange = (token) => {
+        // console.log('Token reCAPTCHA:', token);
+        // this.setState({ captchaToken: token });
             // Guarda el token en el estado o realiza cualquier otra acción necesaria
-          };
+        //   };
         ///
     getFilteredAgentes() {
         const { agentes, filterNombreAgente } = this.state;
@@ -82,7 +81,7 @@ class Agente extends Component{
         this.setState({ filterNombreAgente: e.target.value, currentPage: 1 });
       };
 
-    ///
+    
 
     enviarEventoRefrescarMapa() {
         const evento = new CustomEvent('refrescarMapa');
@@ -97,6 +96,7 @@ class Agente extends Component{
             // const filteredAgentes = this.getFilteredAgentes();
             const totalPages = Math.ceil(data.length / this.state.itemsPerPage);
             this.setState({ agentes: data, totalPages });
+            console.log(data);
         });
 
         fetch(variables.API_URL + 'ubigeo') // reemplaza 'ubigeo' con el nombre correcto del endpoint para obtener los datos de Ubigeo
@@ -366,7 +366,7 @@ class Agente extends Component{
                     </thead>
 
                     <tbody>
-                        {currentItems.map(age=>
+                        {currentItems.map((age)=>(
                             <tr key={age.AgenteId}>
                                 <td>{age.AgenteId}</td>
                                 <td>{age.NombreAgente}</td>
@@ -397,7 +397,7 @@ class Agente extends Component{
                                 </td>
                             </tr>
                             
-                            )}
+                            ))}
                     </tbody>
 
                 </table>
@@ -463,13 +463,13 @@ class Agente extends Component{
                                     </select>
                                 </div>
 
-                                <div>
+                                {/* <div>
                                         <ReCAPTCHA
                                           
                                           sitekey="6Lfeqq8mAAAAANI2S78dn1zE22t2UdXZav_cB6jG"
                                           onChange={this.handleRecaptchaChange}
                                         />
-                                      </div>
+                                      </div> */}
 
                                 {AgenteId===0?
 

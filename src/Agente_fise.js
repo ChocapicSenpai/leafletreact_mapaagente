@@ -11,14 +11,18 @@ import logo from './assets/logof.jpg';
 
 
 
-const Agentefise=()=>{
+const Agentefise=({ token })=>{
 
   const [agentes, setAgentes] = useState([]);
   const [agentesActivos, setAgentesActivos] = useState(0);
   const [agentesInactivos, setAgentesInactivos] = useState(0);
 
+  useEffect(() => {
+    console.log("Token recibido en Agentefise:", token);
+  }, [token]);
 
   useEffect(() => {
+    
     fetch(variables.API_URL+'agente')
       .then(response => response.json())
       .then(data => setAgentes(data))
@@ -118,8 +122,8 @@ return(
       </nav>
       <br></br>
       <Routes>
-        <Route path='/agente' element={<Agente/>}/>
-        <Route path='/ubigeo' element={<Ubigeo/>}/>
+        <Route path='/agente' element={<Agente token={token}/>}/>
+        <Route path='/ubigeo' element={<Ubigeo token={token}/>}/>
       </Routes>
     </div>
     </BrowserRouter>
