@@ -64,7 +64,8 @@
     ////
     import { variables } from "./Variables";
     import React, { useState } from 'react';
-    import logln from "./assets/flgn.png"
+    import logln from "./assets/flgn.png";
+    import md5 from "md5";
 
     const Login = ({ onLogin }) => {
     const [username, setUsername] = useState('');
@@ -79,6 +80,7 @@
             setError('Por favor, ingresa tu usuario y contraseña');
       return;
         }
+        const encryptedPassword = md5(password);
 
         // Realiza la lógica de autenticación aquí
             fetch(variables.API_URL+'auth/login', {
@@ -86,7 +88,7 @@
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, password: encryptedPassword }),
         })
         .then((response) => {
             if (response.ok) {
@@ -127,32 +129,37 @@
 
         /////
 
-        <div class=" row align-items-center justify-content-center border rounded login" style={{margin:"1%"}}>
-        <div class="card-body p-4 p-lg-5 text-black">
+        <div className=" row align-items-center justify-content-center border rounded login" style={{margin:"1%"}}>
+        <div className="card-body p-4 p-lg-5 text-black">
 
           <form  onSubmit={handleSubmit}>
 
-            <div class="d-flex align-items-center mb-3 pb-1">
-              <i class="fas fa-cubes fa-2x me-3" ></i>
+            <div className="d-flex align-items-center mb-3 pb-1">
+              <i className="fas fa-cubes fa-2x me-3" ></i>
               <img src={logln} alt="FISE Logo" height="100px" width="150px" style={{marginTop:"5px", marginBottom:"5px "}}/>
             </div>
 
-            {/* <h5 class="fw-normal mb-3 pb-3" >Ingresa tus credenciales</h5> */}
+            {/* <h5 className="fw-normal mb-3 pb-3" >Ingresa tus credenciales</h5> */}
 
-            <div class="form-outline mb-4">
-              <input type="text"  class="form-control form-control-lg" value={username} onChange={(e) => setUsername(e.target.value)}  />
-              <label class="form-label" >Nombre usuario</label>
+            <div className="form-outline mb-4">
+              <input type="text"  className="form-control form-control-lg" value={username} onChange={(e) => setUsername(e.target.value)}  />
+              <label className="form-label" >Nombre usuario</label>
             </div>
 
-            <div class="form-outline mb-4">
-              <input type="password"  class="form-control form-control-lg" value={password} onChange={(e) => setPassword(e.target.value)}  />
-              <label class="form-label" >Contraseña</label>
+            <div className="form-outline mb-4">
+              <input type="password"  className="form-control form-control-lg" value={password} onChange={(e) => setPassword(e.target.value)}  />
+              <label className="form-label" >Contraseña</label>
+            </div>
+            
+            {error && (
+            <div className="text-danger">{error}</div>
+            )}
+
+            <div className="pt-1 mb-4">
+              <button className="btn btn-dark btn-lg btn-block" type="submit">Login</button>
             </div>
 
-            <div class="pt-1 mb-4">
-              <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
-            </div>
-          
+            
           </form>
 
         </div>
