@@ -168,7 +168,8 @@ class Agente extends Component{
             method: 'POST',
             headers:{
                 'Accept': 'application/json',
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${this.props.token}`
             },
             body:JSON.stringify({
            
@@ -201,7 +202,8 @@ class Agente extends Component{
             method: 'PUT',
             headers:{
                 'Accept': 'application/json',
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${this.props.token}`
             },
             body:JSON.stringify({
                 AgenteId:this.state.AgenteId,
@@ -233,7 +235,8 @@ class Agente extends Component{
             method: 'DELETE',
             headers:{
                 'Accept': 'application/json',
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${this.props.token}`
             }
         })
         .then(res=>res.json())

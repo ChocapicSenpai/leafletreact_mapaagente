@@ -145,7 +145,8 @@ class Ubigeo extends Component{
             method: 'PUT',
             headers:{
                 'Accept': 'application/json',
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${this.props.token}`
             },
             body:JSON.stringify({
                 UbigeoId:this.state.UbigeoId,
@@ -170,7 +171,8 @@ class Ubigeo extends Component{
             method: 'DELETE',
             headers:{
                 'Accept': 'application/json',
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                'Authorization': `Bearer ${this.props.token}`
             }
         })
         .then(res=>res.json())
