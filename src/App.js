@@ -155,7 +155,7 @@ const App = () => {
               <Route path="/" element={<Home token={token} />} />
                 <Route path="/agente" element={<Agente token={token} />} />
                 <Route path="/ubigeo" element={<Ubigeo token={token} />} />
-                <Route path="*" element={<NotFound/>}/>
+                <Route path="*" element={<NotFound token={token}/>}/>
               </Routes>
             </div>
           </div>
