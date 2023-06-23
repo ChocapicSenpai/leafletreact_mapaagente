@@ -18,7 +18,7 @@ const Agentefise=({ token })=>{
   const [agentesInactivos, setAgentesInactivos] = useState(0);
 
   useEffect(() => {
-    console.log("Token recibido en Agentefise:", token);
+    // console.log("Token recibido en Agentefise:", token);
   }, [token]);
 
   useEffect(() => {

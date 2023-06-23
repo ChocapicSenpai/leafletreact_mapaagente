@@ -96,7 +96,7 @@ class Agente extends Component{
             // const filteredAgentes = this.getFilteredAgentes();
             const totalPages = Math.ceil(data.length / this.state.itemsPerPage);
             this.setState({ agentes: data, totalPages });
-            console.log(data);
+            // console.log(data);
         });
 
         fetch(variables.API_URL + 'ubigeo') // reemplaza 'ubigeo' con el nombre correcto del endpoint para obtener los datos de Ubigeo

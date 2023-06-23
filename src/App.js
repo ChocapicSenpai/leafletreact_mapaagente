@@ -66,14 +66,14 @@ const App = () => {
   const handleLogin = (token) => {
     setIsLoggedIn(true);
     setToken(token);
-    console.log('Token:', token);
+    // console.log('Token:', token);
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     setToken('');
     localStorage.removeItem('token');
-    console.log('Token:', token);
+    // console.log('Token:', token);
   };
 
   return (

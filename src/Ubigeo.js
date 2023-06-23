@@ -116,7 +116,7 @@ class Ubigeo extends Component{
     }
 
     createClick(){
-        console.log("Token:", this.props.token);
+        // console.log("Token:", this.props.token);
         fetch(variables.API_URL+'ubigeo',{
             method: 'POST',
             headers:{
